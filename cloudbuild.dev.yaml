@@ -1,0 +1,11 @@
+# Dev-only Cloud Build config: builds the AP and frontend images from this
+# branch for e2e testing. Not part of the release pipeline.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/llm-d-async:openai-fe-dev", "-f", "Dockerfile", "."]
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/llm-d-async-frontend:openai-fe-dev", "-f", "Dockerfile.frontend", "."]
+images:
+  - gcr.io/$PROJECT_ID/llm-d-async:openai-fe-dev
+  - gcr.io/$PROJECT_ID/llm-d-async-frontend:openai-fe-dev
+timeout: 1800s
